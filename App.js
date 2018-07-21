@@ -7,7 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const quotes = {
   happy: "Folks are usually about as happy as they make their minds up to be.",
@@ -20,7 +21,7 @@ type Props = {};
 export default class App extends Component<Props> {
   state = {quote: null};
   onClickMood = (mood) => {
-    this.setState('quote', quotes[mood]);
+    this.setState({quote: quotes[mood]});
   }
   render() {
     return (
@@ -30,7 +31,12 @@ export default class App extends Component<Props> {
         </View>}
         <Text style={styles.welcome}>What is your mood today?</Text>
         <View style={styles.moodContainer}>
-          <Text>Here we will put mood icons using external library.</Text>
+          <TouchableOpacity onPress={()=>this.onClickMood('happy')}>
+            <Icon name="smile-o" size={70} color="#f60" style={styles.icon}  />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>this.onClickMood('angry')}>
+            <Icon name="frown-o" size={70} color="#f00" style={styles.icon} />
+          </TouchableOpacity>
         </View>
         <Text style={styles.instruction}>select how you feel today.</Text>
       </View>
@@ -51,6 +57,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#009966',
     padding: 10
   },
+  icon: {
+    margin: 10,
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -69,6 +78,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   moodContainer: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems:'center',
     padding: 10
