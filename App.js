@@ -9,21 +9,30 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const quotes = {
+  happy: "Folks are usually about as happy as they make their minds up to be.",
+  joy: "When you do things from your soul, you feel a river moving in you, a joy.",
+  sad: "The word 'happy' would lose its meaning if it were not balanced by sadness. It's ok to be sad sometimes. It's part of life.",
+  angry: "For every minute you remain angry, you give up sixty seconds of peace of mind.",
+}
 
 type Props = {};
 export default class App extends Component<Props> {
+  state = {quote: null};
+  onClickMood = (mood) => {
+    this.setState('quote', quotes[mood]);
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        {(this.state.quote)&&<View style={styles.quotesContainer}>
+          <Text style={styles.quote}>{this.state.quote}</Text>
+        </View>}
+        <Text style={styles.welcome}>What is your mood today?</Text>
+        <View style={styles.moodContainer}>
+          <Text>Here we will put mood icons using external library.</Text>
+        </View>
+        <Text style={styles.instruction}>select how you feel today.</Text>
       </View>
     );
   }
@@ -36,14 +45,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  quotesContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#009966',
+    padding: 10
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  quote: {
+    fontSize: 22,
+    fontWeight: '700',
+    textAlign:'center',
+    margin: 10,
+    color: "#f8f8f8"
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
   },
+  moodContainer: {
+    justifyContent: 'center',
+    alignItems:'center',
+    padding: 10
+  }
 });
